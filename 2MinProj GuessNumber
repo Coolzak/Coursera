@@ -1,0 +1,77 @@
+# "Guess the number" mini-project
+
+# start SimpleGui built-in functions and global variables
+import simplegui
+import random
+player_guess = 0
+secret_number = 0
+
+# helper function to start and restart the game
+def new_game():
+    # initialize global variables used in your code here
+    global secret_number
+#    range100 ()
+    secret_number = random.randrange (0, 100)
+    return secret_number
+    print
+    print "Game started"
+    print "Hided number", secret_number
+
+    # define event handlers for control panel
+def range100():
+    # button that changes the range to [0,100) and starts a new game 
+    global secret_number
+    secret_number = random.randrange (0, 100)
+    return secret_number 
+    print 
+    print "Game started"
+    print "Hided number", secret_number
+    
+def range1000():
+    # button that changes the range to [0,1000) and starts a new game     
+    global secret_number
+    secret_number = random.randrange (0, 1000)
+    return secret_number
+    print
+    print "Game started"
+    print "Hided number", secret_number
+    
+#  event handler function
+def input_guess(guess):
+    # Check for numeric entrance
+    try: 
+        guess = int (guess)
+    except:
+        print "Error, enter number only"
+        quit ()
+    
+    global player_guess
+    player_guess = guess
+    print "Guess was",player_guess 
+
+     # main game logic goes here	
+    if player_guess < secret_number:
+        print "Higher"
+    elif player_guess > secret_number:
+        print "Lower"
+    else:
+        print "Correct"
+        print
+
+# register event handlers for control elements and start frame:
+# create a frame        
+screen=simplegui.create_frame ('Game-"Guess the number"', 250, 200, 150)
+
+# add input field
+guess = screen.add_input('My guess is:', input_guess, 144)
+
+# add "Start" buttons
+start_button = screen.add_button("Start new game", new_game, 150)
+range100_button = screen.add_button("Start 'range100' game", range100, 150)
+range1000_button = screen.add_button("Start 'range1000' game", range1000, 150)
+
+# start frame
+screen.start ()
+
+# call new_game 
+new_game()
